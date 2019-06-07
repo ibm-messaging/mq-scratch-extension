@@ -26,6 +26,8 @@ Run a container (and create a docker volume) with
 docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM1 --volume qmdatascratch:/mnt/mqm --publish 1414:1414 --publish 9443:9443 --network mq-demo-network --network-alias qmgr --detach --env MQ_APP_PASSWORD=test mq-scratch:latest
 ```
 
+This will also set the password for connecting applications to be 'test', unless you change it in the above command.
+
 [Have a look here](https://developer.ibm.com/messaging/learn-mq/) if you'd like to learn more about IBM MQ.
 
 ## Running the extension
