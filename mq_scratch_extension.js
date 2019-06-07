@@ -21,6 +21,7 @@ limitations under the License.*/
        allowCredentials="true"
        maxAge="3600" />
        */
+
 (function (ext) {
   var ext = this;
   var apiBase = "/ibmmq/rest/v1/"
