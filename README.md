@@ -4,37 +4,31 @@ This is the code for the [ScratchX extension](https://scratchx.org/) for IBM MQ.
 
 ## Setting up IBM MQ and the REST API
 
-Follow [these instructions](https://developer.ibm.com/messaging/learn-mq/mq-tutorials/mq-connect-to-queue-manager/) to get started with IBM MQ.
+Create a directory for the extension on your machine.
 
-In order to start sending messages through the IBM MQ REST API, you first need to edit one MQ file to allow this to happen. Edit the file
+Download the Dockerfile and the scratchmqwebuser.xml file into this folder.
 
-```bash
-vi /var/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml
-```
-
-(NOTE: If you're using the MQ image in Docker, exec into the container with
+Navigate to this folder and build the Docker image with
 
 ```bash
-docker exec -ti **your_container_id** /bin/bash
+docker build -t "mq-scratch" .
 ```
 
-before running the above command.)
-
-Add this info to the end of the file, before the `</server>` tag:
+Create a Docker network called mq-demo-network to allow a volume and container to communicate with each other.
 
 ```bash
-<cors domain="/ibmmq/rest/v1"
-       allowedOrigins="https://scratchx.org/*"
-       allowedMethods="GET, POST, PUT, DELETE"
-       allowedHeaders="*"
-       exposeHeaders="Authorization, Content-Type, ibm-mq-rest-csrf-token"
-       allowCredentials="true"
-       maxAge="3600" />
+docker network create mq-demo-network
 ```
 
-MQ's REST API is now enabled.
+Run a container (and create a docker volume) with
 
-(NOTE: if using Docker, when the container is stopped it may be necessary to repeat these steps to re-enable the REST API. Watch this space!)
+```bash
+docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM1 --volume qmdatascratch:/mnt/mqm --publish 1414:1414 --publish 9443:9443 --network mq-demo-network --network-alias qmgr --detach --env MQ_APP_PASSWORD=test mq-scratch:latest
+```
+
+This will also set the password for connecting applications to be 'test', unless you change it in the above command.
+
+[Have a look here](https://developer.ibm.com/messaging/learn-mq/) if you'd like to learn more about IBM MQ.
 
 ## Running the extension
 

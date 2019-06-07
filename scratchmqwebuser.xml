@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--(c) Copyright IBM Corporation 2018
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0).
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.-->
+<server>
+    <featureManager>
+        <feature>appSecurity-2.0</feature>
+        <feature>basicAuthenticationMQ-1.0</feature>
+    </featureManager>
+    <enterpriseApplication id="com.ibm.mq.console">
+        <application-bnd>
+            <security-role name="MQWebAdmin">
+                <group name="MQWebUI" realm="defaultRealm"/>
+            </security-role>
+        </application-bnd>
+    </enterpriseApplication>
+    <enterpriseApplication id="com.ibm.mq.rest">
+        <application-bnd>
+            <security-role name="MQWebAdmin">
+                <group name="MQWebUI" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MQWebUser">
+                <group name="MQWebMessaging" realm="defaultRealm"/>
+            </security-role>
+        </application-bnd>
+    </enterpriseApplication>
+    <basicRegistry id="basic" realm="defaultRealm">
+        <user name="admin" password="${env.MQ_ADMIN_PASSWORD}"/>
+        <!-- The app user will always get a default password of "passw0rd",
+             even if you don't set the environment variable.
+             See `webserver.go` -->
+        <user name="app" password="${env.MQ_APP_PASSWORD}"/>
+        <group name="MQWebUI">
+            <member name="admin"/>
+        </group>
+        <group name="MQWebMessaging">
+            <member name="app"/>
+        </group>
+    </basicRegistry>
+    <variable name="httpHost" value="*"/>
+    <variable name="managementMode" value="externallyprovisioned"/>
+    <include location="tls.xml"/>
+    <cors domain="/ibmmq/rest/v1"
+       allowedOrigins="https://scratchx.org/*"
+       allowedMethods="GET, POST, PUT, DELETE"
+       allowedHeaders="*"
+       exposeHeaders="Authorization, Content-Type, ibm-mq-rest-csrf-token"
+       allowCredentials="true"
+       maxAge="3600" />
+</server>
