@@ -12,16 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
-/* IMPORTANT: Add cors info to the file /var/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml
-  <cors domain="/ibmmq/rest/v1"
-       allowedOrigins="https://scratchx.org/*"
-       allowedMethods="GET, POST, PUT, DELETE"
-       allowedHeaders="*"
-       exposeHeaders="Authorization, Content-Type, ibm-mq-rest-csrf-token"
-       allowCredentials="true"
-       maxAge="3600" />
-       */
-
 (function (ext) {
   var ext = this;
   var apiBase = "/ibmmq/rest/v1/"
@@ -180,18 +170,15 @@ limitations under the License.*/
   // Block and block menu descriptions
   var descriptor = {
     blocks: [
-      //['R', 'Put Msg %s %s %s %s %s %s', 'put_message', 'localhost', 'QM1', 'DEV.QUEUE.1', 'app', 'passw0rd', 'message'],
       ['R', 'Get Msg %s %s %s %s %s', 'get_message', 'localhost', 'QM1', 'DEV.QUEUE.1', 'app', 'passw0rd'],
       ['w', 'Put Msg %s %s %s %s %s %s', 'put_message', 'localhost', 'QM1', 'DEV.QUEUE.1', 'app', 'passw0rd', 'message'],
       ['w', 'Get Msg %s %s %s %s %s', 'get_message', 'localhost', 'QM1', 'DEV.QUEUE.1', 'app', 'passw0rd'],
-      //['b', 'Get Msg %s %s %s %s %s', 'get_message', 'localhost', 'QM1', 'DEV.QUEUE.1', 'app', 'passw0rd'],
       ['w', 'Make Request %s %s %s %s %m.requestCorrIdMenu %s %s %s', 'make_request', 'localhost', 'QM1', 'DEV.QUEUE.1', 'DEV.QUEUE.2', 'Request 1', 'app', 'passw0rd', 'message'],
       ['R', 'Get Response %s %s %s %m.requestCorrIdMenu %s %s', 'get_response', 'localhost', 'QM1', 'DEV.QUEUE.1', 'Request 1', 'app', 'passw0rd'],
       ['w', 'Get Response %s %s %s %m.requestCorrIdMenu %s %s', 'get_response', 'localhost', 'QM1', 'DEV.QUEUE.1', 'Request 1', 'app', 'passw0rd'],
     ],
     menus: {
       requestCorrIdMenu: ['Request 1', 'Request 2', 'Request 3', 'Request 4', 'Request 5', 'Request 6', 'Request 7', 'Request 8', 'Request 9', 'Request 10'],
-      //responseCorrIdMenu: ['Response 1', 'Response 2', 'Response 3', 'Response 4', 'Response 5', 'Response 6', 'Response 7', 'Response 8', 'Response 9', 'Response 10']
     },
   };
 
