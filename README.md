@@ -8,7 +8,9 @@ Create a directory for the extension on your machine.
 
 Download the Dockerfile and the scratchmqwebuser.xml file into this folder.
 
-Navigate to this folder and build the Docker image with
+*NOTE: the Docker container will be open to requests from the scratchx.org domain. We do this to allow messages from the ScratchX site to be processed by IBM MQ in the container.*
+
+Navigate to this folder and build the Docker image with the .xml file:
 
 ```bash
 docker build -t "mq-scratch" .
