@@ -1,8 +1,8 @@
 # ScratchX extension for IBM MQ
 
-This is the code for the [ScratchX extension](https://scratchx.org/) for IBM MQ. In order to run the extension, you will need a running instance of IBM MQ (in Docker or on a machine) with the REST API enabled.
+This is the code for the [ScratchX extension](https://scratchx.org/) for IBM MQ. In order to run the extension, you will need a running instance of IBM MQ (in Docker or on a machine) with the REST API enabled. The Dockerfile in this repo has the REST API pre-enabled, so setting this up is all you need.
 
-## Setting up IBM MQ and the REST API
+## Setting up IBM MQ
 
 Create a directory for the extension on your machine.
 
